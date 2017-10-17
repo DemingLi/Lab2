@@ -104,18 +104,13 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
                     if(TextUtils.isEmpty(username.getText().toString())) {
                         t1.setError("学号不能为空");
                     }
                     else {
                         t1.setErrorEnabled(false);
                     }
-                } catch (Exception e) {
 
-                }
-
-                try {
                     if(TextUtils.isEmpty(passowrd.getText().toString())) {
                         if(TextUtils.isEmpty(username.getText().toString())) {
                             t2.setErrorEnabled(false);
@@ -127,9 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         t2.setErrorEnabled(false);
                     }
-                } catch (Exception e) {
 
-                }
                 if(username.getText().toString().equals("123456") && passowrd.getText().toString().equals("6666")) {
                     Snackbar msnackbar3=Snackbar.make(findViewById(R.id.login), "登录成功", Snackbar.LENGTH_LONG);
                     msnackbar3.setAction("确定", new View.OnClickListener() {
