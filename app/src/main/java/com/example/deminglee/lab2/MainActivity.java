@@ -8,7 +8,9 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.AlertDialog;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -98,27 +100,43 @@ public class MainActivity extends AppCompatActivity {
         final EditText username= (EditText) findViewById(R.id.num);
         final EditText passowrd= (EditText) findViewById(R.id.pas);
 
+        username.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(username.getText().length() > t1.getCounterMaxLength()) {
+                    t1.setError("学号长度超过限制");
+                }
+            }
+        });
+
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    if(TextUtils.isEmpty(username.getText().toString())) {
-                        t1.setError("学号不能为空");
-                    }
-                    else {
-                        t1.setErrorEnabled(false);
-                    }
+                if(TextUtils.isEmpty(username.getText().toString())) {
+                    t1.setError("学号不能为空");
+                }
+                else {
+                    t1.setErrorEnabled(false);
+                }
 
-                    if(TextUtils.isEmpty(passowrd.getText().toString())) {
-                        if(TextUtils.isEmpty(username.getText().toString())) {
-                            t2.setErrorEnabled(false);
-                        }
-                        else {
-                            t2.setError("密码不能为空");
-                        }
-                    }
-                    else {
+                if(TextUtils.isEmpty(passowrd.getText().toString())) {
+                    if(TextUtils.isEmpty(username.getText().toString())) {
                         t2.setErrorEnabled(false);
                     }
+                    else {
+                        t2.setError("密码不能为空");
+                    }
+                }
+                else {
+                    t2.setErrorEnabled(false);
+                }
 
                 if(username.getText().toString().equals("123456") && passowrd.getText().toString().equals("6666")) {
                     Snackbar msnackbar3=Snackbar.make(findViewById(R.id.login), "登录成功", Snackbar.LENGTH_LONG);
@@ -147,4 +165,3 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
-
